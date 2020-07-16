@@ -84,7 +84,7 @@ module.exports={
         var sql=`select * from users where username = ? and password = ?`
         db.query(sql,[username,encrypt(password)],(err,result)=>{
             if(err) res.status(500).send(err)
-            if(result.length){
+            if(result?result.length:false){
                 var token=jwt.sign({id:result[0].id},"shifu",{expiresIn: '12h'})
                 var user={
                     id:result[0].id,
